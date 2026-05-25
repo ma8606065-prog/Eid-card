@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>عيد سعيد</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(-45deg, #f7f3e8, #e6f0f2, #dcecf2, #fef6e4);
+      background-size: 400% 400%;
+      animation: bg 10s ease infinite;
+      position: relative;
+    }
+
+    @keyframes bg {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* 🌞 شمس */
+    .sun {
+      position: absolute;
+      top: 40px;
+      right: 60px;
+      font-size: 70px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    /* ☁️ سحب */
+    .cloud {
+      position: absolute;
+      font-size: 60px;
+      opacity: 0.8;
+      animation: moveClouds 25s linear infinite;
+    }
+
+    .cloud1 { top: 10%; left: -10%; }
+    .cloud2 { top: 25%; left: -20%; font-size: 80px; }
+    .cloud3 { top: 40%; left: -15%; font-size: 70px; }
+
+    @keyframes moveClouds {
+      from { transform: translateX(0); }
+      to { transform: translateX(120vw); }
+    }
+
+    /* 🌸 ورد */
+    .flower {
+      position: absolute;
+      font-size: 30px;
+      opacity: 0.7;
+      animation: floatFlower 8s infinite ease-in-out;
+    }
+
+    .flower:nth-child(1) { top: 15%; left: 20%; }
+    .flower:nth-child(2) { top: 45%; left: 70%; }
+    .flower:nth-child(3) { top: 65%; left: 30%; }
+    .flower:nth-child(4) { top: 80%; left: 80%; }
+
+    @keyframes floatFlower {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px) rotate(10deg); }
+    }
+
+    /* 🎴 الكرت */
+    .card {
+      width: 380px;
+      padding: 35px;
+      border-radius: 30px;
+      text-align: center;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,0,0,0.1);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      animation: float 4s ease-in-out infinite;
+      z-index: 10;
+    }
+
+    h1 {
+      font-size: 50px;
+      color: #d4a017;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin-top: 10px;
+    }
+
+    p {
+      margin-top: 15px;
+      font-size: 18px;
+      color: #444;
+      line-height: 1.8;
+    }
+
+    .sheep img {
+      width: 140px;
+      margin: 20px 0;
+      animation: bounce 2s infinite;
+    }
+
+    .btn {
+      margin-top: 15px;
+      padding: 14px 28px;
+      border-radius: 40px;
+      background: #ffd56b;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    /* 🎊 كونفتي خفيف */
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      top: -10px;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 🌞 الشمس -->
+  <div class="sun">🌞</div>
+
+  <!-- ☁️ السحب -->
+  <div class="cloud cloud1">☁️</div>
+  <div class="cloud cloud2">☁️</div>
+  <div class="cloud cloud3">☁️</div>
+
+  <!-- 🌸 الورود -->
+  <div class="flower flower1">🌸</div>
+  <div class="flower flower2">🌸</div>
+  <div class="flower flower3">🌸</div>
+  <div class="flower flower4">🌸</div>
+
+  <!-- 🎧 تكبيرات -->
+  <audio id="takbeer" loop>
+    <source src="takbeer.mp3.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- 🎴 الكرت -->
+  <div class="card">
+    <h2>عيد اضحى مبارك 🐏</h2>
+    <p>
+    كل عام وانتم بخير <br>
+    جعل الله عيدكم فرحة بأعمال قبلت
+    وذنوب محيت ودرجات رفعت ✨
+    </p>
+    <div class="sheep">
+      <img src="sheep.png.jpg" />
+    </div>
+
+    <button class="btn" onclick="toggleAudio()">
+      عيدكم مبارك 🐏✨
+    </button>
+  </div>
+
+  <script>
+    const audio = document.getElementById("takbeer");
+    let playing = false;
+
+    function toggleAudio() {
+      if (!playing) {
+        audio.play();
+        startConfetti();
+      } else {
+        audio.pause();
+      }
+      playing = !playing;
+    }
+
+    function startConfetti() {
+      const colors = ["#ffd56b","#ffcc00","#66ccff","#ff6699","#fff"];
+
+      for (let i = 0; i < 40; i++) {
+        const conf = document.createElement("div");
+        conf.classList.add("confetti");
+
+        conf.style.left = Math.random() * 100 + "vw";
+        conf.style.background = colors[Math.floor(Math.random() * colors.length)];
+        conf.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+        document.body.appendChild(conf);
+
+        setTimeout(() => conf.remove(), 5000);
+      }
+    }
+  </script>
+
+</body>
+</html>
